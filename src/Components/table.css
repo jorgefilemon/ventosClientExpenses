@@ -1,0 +1,132 @@
+.product-table {
+  width: 100%;
+  max-height: 380px;
+  overflow-y: auto;
+  background-color: #d1d1d1;
+  overflow-y: scroll;
+}
+
+.product-table table {
+  border-collapse: collapse;
+  text-align: center;
+  width: 100%;
+}
+.product-table thead {
+  position: sticky;
+  top: 0;
+}
+
+.product-table th {
+  background-color: rgb(159, 159, 159);
+  color: white;
+  padding: 16px 20px;
+  border-left: 1px solid white;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.product-table th::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: white;
+}
+
+.product-table th:nth-child(1) {
+  border-left: none;
+  min-width: 50px;
+  max-width: 50px;
+}
+
+.product-table td:nth-child(1) {
+  min-width: 50px;
+  max-width: 50px;
+}
+
+.product-table th:nth-child(2) {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.product-table td:nth-child(2) {
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.product-table td:nth-child(1) {
+  border-left: none;
+}
+.product-table td:nth-child(5) {
+  min-width: 60px;
+  max-width: 60px;
+  border-right: none;
+  text-align: right;
+  padding-right: 19px;
+}
+.product-table th:nth-child(5) {
+  min-width: 60px;
+  max-width: 60px;
+  border-right: none;
+}
+
+.product-table td {
+  border: solid 1px rgb(240, 240, 240);
+  font-size: 20px;
+  padding: 8px 0px;
+}
+
+.active-background {
+  background-color: #b7d2fc;
+}
+
+.vale-background {
+  background-color: rgb(135, 129, 244);
+  color: white;
+}
+.descuento-background {
+  background-color: #ff568e;
+  color: white;
+}
+
+.cambioPrecio-background {
+  background-color: #f587ac;
+}
+
+.devolucion-background {
+  color: #fdfdfd;
+  background-color: #ff7979;
+}
+
+.ajuste-background {
+  color: #1904ff;
+  font-weight: bold;
+}
+
+.inapam-background {
+  background-color: #ff74f3d0;
+  color: white;
+}
+
+.active-ajuste-background {
+  background-color: #b7d2fc;
+  color: #1904ff;
+  font-weight: 500;
+}
+
+.cambioCliente-background {
+  background-color: rgb(76, 212, 146);
+  color: white;
+}
+
+.borrar-btn {
+  padding: 14px 20px;
+  background-color: #b6b6b6;
+  color: white;
+  border: none;
+
+  border-radius: 4px;
+  font-size: 20px;
+}

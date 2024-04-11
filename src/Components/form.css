@@ -1,0 +1,53 @@
+.form-control {
+  padding: 14px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(123, 126, 126);
+  margin-bottom: 1px;
+}
+
+.form-space,
+.form-button {
+  min-width: 180px;
+}
+
+.form-control form input {
+  padding: 16px;
+  width: 460px;
+  font-size: 20px;
+  border-radius: 2px;
+  border: 1px solid gray;
+}
+
+.form-control form button {
+  padding: 16px;
+  font-size: 20px;
+  margin-left: 10px;
+  border-radius: 4px;
+  border: none;
+}
+
+.form-button button {
+  max-width: 100px;
+  padding: 4px;
+  font-size: 20px;
+  color: rgb(125, 125, 125);
+  float: right;
+  margin-left: 10px;
+  border-radius: 4px;
+  border: none;
+}
+
+.form-control form input {
+  border: none;
+  border: 1px solid rgb(208, 208, 208);
+  border-radius: 4px;
+  background-color: rgb(208, 208, 208);
+}
+
+.form-control form > input:focus {
+  outline: 2px solid #74dcff;
+  border: 1px solid #74dcff;
+}

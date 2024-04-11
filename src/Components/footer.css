@@ -1,0 +1,73 @@
+.footer-container {
+  display: flex;
+
+  background-color: rgb(123, 126, 126);
+  height: 80px;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: auto;
+  width: 100%;
+  font-size: 36px;
+}
+
+.space-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 180px;
+  min-width: 180px;
+  background-color: aliceblue;
+}
+
+.button-container > button {
+  padding: 10px 180px;
+  font-size: 34px;
+  border-radius: 4px;
+  background-color: rgb(101, 148, 218);
+  color: white;
+  border: none;
+  margin: 20px;
+}
+
+.total-container {
+  padding: 10px;
+  max-width: 180px;
+  min-width: 180px;
+  border-radius: 4px;
+  background-color: rgb(191, 191, 191);
+  text-align: right;
+  color: white;
+  font-size: 30px;
+}
+
+.status_container {
+
+  max-width: 180px;
+  min-width: 180px;
+  padding: 4px;
+  border-radius: 4px;
+
+  text-align: left;
+  color: white;
+  font-size: 16px;
+}
+
+.status_container p {
+  font-size: 20px;
+  color:rgb(224, 224, 224);
+}
+.mercadoconectado {
+  background-color: rgb(187, 187, 187);
+  border-radius: 6px;
+  padding: 2px 4px;
+  color: rgb(26, 190, 149);
+  font: 12px;
+}
+
+.mercadoSinConexion {
+  background-color: rgb(187, 187, 187);
+  border-radius: 6px;
+  padding: 2px 4px;
+  color: rgb(241, 55, 170);
+  font-size: 18px;
+  font-weight: 600;
+}
