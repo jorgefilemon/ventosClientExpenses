@@ -5,20 +5,20 @@ import ModalCantidad from "./Cantidad";
 function Fletes({ closeModal }) {
 	const [modalCantidad, setModalCantidad] = useState(false);
 
-	const [gasto, setGasto] = useState({
+	const [expense, setExpense] = useState({
 		type: "flete",
-		gastoName: "",
+		expenseName: "",
 		cantidad: 0,
 	});
 
-	const [gastoName, setGastoName] = useState(null);
+	const [expenseName, setExpenseName] = useState(null);
 
-	const [gastoList, setGastoList] = useState([]);
+	const [expenseList, setExpenseList] = useState([]);
 
-	const createGasto = (e) => {
-		setGastoName(e.target.id);
+	const createexpense = (e) => {
+		setExpenseName(e.target.id);
 		setModalCantidad(true);
-		console.log(gasto);
+		console.log(expense);
 	};
 
 	return (
@@ -27,7 +27,7 @@ function Fletes({ closeModal }) {
 				<button
 					id="inter bajio"
 					className={styles.rosaFuerte}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					inter bajio
 				</button>
@@ -37,19 +37,19 @@ function Fletes({ closeModal }) {
 					<thead>
 						<tr>
 							<th>borrar</th>
-							<th>{gasto.type}</th>
+							<th>{expense.type}</th>
 							<th>cantidad</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						{/* Use map to render rows for each element in gastoList */}
-						{gastoList.map((item, index) => (
+						{/* Use map to render rows for each element in expenseList */}
+						{expenseList.map((item, index) => (
 							<tr key={index}>
 								<td>
 									<button>X</button>
 								</td>
-								<td>{item.gastoName}</td>
+								<td>{item.expenseName}</td>
 								<td>{item.cantidad}</td>
 							</tr>
 						))}
@@ -63,12 +63,12 @@ function Fletes({ closeModal }) {
 
 			{modalCantidad && (
 				<ModalCantidad
-					gasto={gasto}
-					gastoName={gastoName}
-					setGasto={setGasto}
+					expense={expense}
+					expenseName={expenseName}
+					setExpense={setExpense}
 					setModalCantidad={setModalCantidad}
-					gastoList={gastoList}
-					setGastoList={setGastoList}
+					expenseList={expenseList}
+					setExpenseList={setExpenseList}
 				/>
 			)}
 		</>

@@ -1,14 +1,16 @@
 import SalidaEfe from "../Components/SalidaEfe/SalidaEfe";
-
+import ExpenseListProvider from "../Contexts/ExpenseList";
 import ExpenseProvider from "../Contexts/Expense";
 
 const SalidaPage = () => {
 	return (
-		<ExpenseProvider>
-			<div className="container">
-				<SalidaEfe />
-			</div>
-		</ExpenseProvider>
+		<ExpenseListProvider>
+			<ExpenseProvider>
+				<div className="container">
+					<SalidaEfe />
+				</div>
+			</ExpenseProvider>
+		</ExpenseListProvider>
 	);
 };
 

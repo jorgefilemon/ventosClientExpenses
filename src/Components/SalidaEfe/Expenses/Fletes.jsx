@@ -1,42 +1,64 @@
 import { useState } from "react";
-import axios from "axios";
 import styles from "../modal/modal.module.css";
-
-import ModalCantidad from "./Cantidad";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../../Contexts/AuthContext";
+import ModalCantidad from "./ModalCantidad";
 
 function Fletes({ closeModal, modalName }) {
+	const { auth } = useContext(AuthContext);
+	// 1 state
 	const [modalCantidad, setModalCantidad] = useState(false);
 
-	const [gasto, setGasto] = useState({
+	const [expense, setExpense] = useState({
 		type: modalName,
-		gastoName: "",
+		expenseName: "",
 		cantidad: 0,
 	});
 
-	// console.log(gasto);
+	const [expenseList, setExpenseList] = useState([]);
 
-	const [gastoList, setGastoList] = useState([]);
-
-	const createGasto = (e) => {
-		setGasto({ ...gasto, cantidad: 0, gastoName: e.target.id });
+	// creates expense object.
+	const createexpense = (e) => {
+		setExpense((prevExpense) => ({
+			type: modalName,
+			cantidad: 0,
+			expenseName: e.target.id,
+		}));
 		setModalCantidad(true);
 	};
 
-	const deleteproduct = (myIndex) => {
-		// Use the callback form of setGastoList to ensure you are working with the latest state
-		setGastoList((prevGastoList) =>
-			prevGastoList.filter((gasto, index) => index !== myIndex)
-		);
-	};
+	const sendExpense = async (e) => {
+		e.preventDefault();
 
-	const sendExpense = () => {
-		axios.post();
-	};
-	const cancelarCerrar = () => {
+		try {
+			await axios.post("http://localhost:3001/expense", {
+				expenseList: expenseList, // Use the updated list directly here
+				usu_id: auth.id,
+			});
+			console.log("Expenses sent successfully");
+		} catch (error) {
+			console.error("Error sending expenses:", error);
+		}
+		// Reset the input form
+		setExpense({ type: "", expenseName: "", cantidad: 0 });
+		setExpenseList([]);
+		//closes a modal
 		closeModal();
 	};
 
-	const resultado = gastoList.reduce(
+	const deleteproduct = (myIndex) => {
+		// Use the callback form of setExpenseList to ensure you are working with the latest state
+		setExpenseList((prevexpenseList) =>
+			prevexpenseList.filter((expense, index) => index !== myIndex)
+		);
+	};
+
+	// const cancelarCerrar = () => {
+	// 	closeModal();
+	// };
+
+	const resultado = expenseList.reduce(
 		(total, currentValue) =>
 			(total = total + parseFloat(currentValue.cantidad)),
 		0
@@ -48,21 +70,21 @@ function Fletes({ closeModal, modalName }) {
 				<button
 					id="inter bajio"
 					className={styles.rosaFuerte}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					inter bajio
 				</button>
 				<button
 					id="castores"
 					className={styles.rosa}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					castores
 				</button>
 				<button
 					id="julian de obregon"
 					className={styles.naranja}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					julian de
 					<br />
@@ -71,7 +93,7 @@ function Fletes({ closeModal, modalName }) {
 				<button
 					id="otro"
 					className={styles.morado}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					otro
 				</button>
@@ -87,7 +109,7 @@ function Fletes({ closeModal, modalName }) {
 					</thead>
 
 					<tbody>
-						{gastoList.map((item, index) => (
+						{expenseList.map((item, index) => (
 							<tr key={index}>
 								<td>
 									<button
@@ -96,7 +118,7 @@ function Fletes({ closeModal, modalName }) {
 										X
 									</button>
 								</td>
-								<td>{item.gastoName}</td>
+								<td>{item.expenseName}</td>
 								<td>
 									{new Intl.NumberFormat("en-US", {
 										style: "currency",
@@ -117,13 +139,14 @@ function Fletes({ closeModal, modalName }) {
 					}).format(resultado)}
 				</div>
 			</div>
+
 			<div className={styles.aceptarCancelar}>
-				<button className={styles.aceptarBtn}>Aceptar</button>
+				<button className={styles.aceptarBtn} onClick={sendExpense}>
+					Aceptar
+				</button>
 				<button
 					className={styles.cancelarBtn}
-					onClick={() => {
-						cancelarCerrar();
-					}}
+					onClick={() => closeModal()}
 				>
 					Cancelar
 				</button>
@@ -131,11 +154,11 @@ function Fletes({ closeModal, modalName }) {
 
 			{modalCantidad && (
 				<ModalCantidad
-					gasto={gasto}
-					setGasto={setGasto}
+					expense={expense}
+					setExpense={setExpense}
 					setModalCantidad={setModalCantidad}
-					gastoList={gastoList}
-					setGastoList={setGastoList}
+					expenseList={expenseList}
+					setExpenseList={setExpenseList}
 				/>
 			)}
 		</>

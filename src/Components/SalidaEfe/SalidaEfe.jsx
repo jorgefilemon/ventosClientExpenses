@@ -2,7 +2,7 @@ import styles from "./salidaEfe.module.css";
 import { useState, useContext } from "react";
 import { ExpenseContext } from "../../Contexts/Expense";
 import Modal from "./modal/Modal";
-import OxxoRafiaOtros from "./Expenses/OxxoRafiaOtros";
+import OxxoRafiaOtrosModal from "./Expenses/OxxoRafiaOtrosModal";
 
 const SalidaEfe = () => {
 	// const { auth } = useContext(AuthContext);
@@ -12,10 +12,13 @@ const SalidaEfe = () => {
 	const Papeleria = "Papeleria";
 
 	// context for Oxxo Rafia otros
-	const { gasto, setGasto } = useContext(ExpenseContext);
-	console.log(gasto);
+	const { expense, setExpense } = useContext(ExpenseContext);
+	console.log(expense);
+
 	// opens Donativos, Fletes, Papeleria Modal
 	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	// function to sendExpense to the back end.
 
 	// opens oxxoRafiaOtros.jsx
 	const [oxxoRafiaOtrosModal, setOxxoRafiaOtrosModal] = useState(false);
@@ -59,11 +62,11 @@ const SalidaEfe = () => {
 				<button
 					className={styles.orange}
 					onClick={() => {
-						setGasto({
-							...gasto,
+						setExpense({
+							...expense,
 							cantidad: 0,
 							type: "agua",
-							gastoName: "Agua oxxo",
+							expenseName: "Agua oxxo",
 						});
 						setOxxoRafiaOtrosModal(true);
 					}}
@@ -75,25 +78,26 @@ const SalidaEfe = () => {
 				<button
 					className={styles.morado}
 					onClick={() => {
-						setGasto({
-							...gasto,
+						setExpense({
+							...expense,
 							cantidad: 0,
 							type: "limpieza",
-							gastoName: "limpieza",
+							expenseName: "limpieza",
 						});
 						setOxxoRafiaOtrosModal(true);
 					}}
 				>
 					limpieza
 				</button>
-				<button className={styles.moradoClaro}>salarios</button>
+				{/* <button className={styles.moradoClaro}>salarios</button> */}
 				<button
 					className={styles.verdeClaro}
 					onClick={() => {
-						setGasto({
-							...gasto,
-							type: "papeleria",
-							gastoName: "rafia",
+						setExpense({
+							...expense,
+							cantidad: 0,
+							type: "rafia",
+							expenseName: "rafia",
 						});
 						setOxxoRafiaOtrosModal(true);
 					}}
@@ -103,15 +107,15 @@ const SalidaEfe = () => {
 				<button
 					className={styles.verde}
 					onClick={() => {
-						setGasto({
-							...gasto,
-							type: "otro",
-							gastoName: "otros gastos",
+						setExpense({
+							...expense,
+							type: "otros",
+							expenseName: "otros expenses",
 						});
 						setOxxoRafiaOtrosModal(true);
 					}}
 				>
-					otros gastos
+					otros
 				</button>
 			</div>
 
@@ -119,7 +123,7 @@ const SalidaEfe = () => {
 				<Modal modalName={modalName} closeModal={closeModal} />
 			)}
 			{oxxoRafiaOtrosModal && (
-				<OxxoRafiaOtros
+				<OxxoRafiaOtrosModal
 					setOxxoRafiaOtrosModal={setOxxoRafiaOtrosModal}
 				/>
 			)}

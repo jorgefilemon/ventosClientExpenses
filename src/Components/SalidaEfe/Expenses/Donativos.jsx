@@ -1,42 +1,59 @@
 import { useState } from "react";
 import styles from "../modal/modal.module.css";
-
-import ModalCantidad from "./Cantidad";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../../Contexts/AuthContext";
+import ModalCantidad from "./ModalCantidad";
 
 function Donativos({ closeModal, modalName }) {
+	const { auth } = useContext(AuthContext);
 	const [modalCantidad, setModalCantidad] = useState(false);
 
-	// const { gasto, setGasto } = useContext(ExpenseContext);
-
-	const [gasto, setGasto] = useState({
+	const [expense, setExpense] = useState({
 		type: modalName,
-		gastoName: "",
+		expenseName: "",
 		cantidad: 0,
 	});
 
-	const [gastoList, setGastoList] = useState([]);
+	const [expenseList, setExpenseList] = useState([]);
 
-	console.log(gasto, modalCantidad);
-	// creates gasto object.
-	const createGasto = (e) => {
-		setGasto({
-			...gasto,
+	// creates expense object.
+	const createexpense = (e) => {
+		setExpense((prevExpense) => ({
 			type: modalName,
 			cantidad: 0,
-			gastoName: e.target.id,
-		});
+			expenseName: e.target.id,
+		}));
 		setModalCantidad(true);
-		console.log("setModalCantidad:", modalCantidad); // Log here
+	};
+
+	const sendExpense = async (e) => {
+		e.preventDefault();
+
+		try {
+			await axios.post("http://localhost:3001/expense", {
+				expenseList: expenseList, // Use the updated list directly here
+				usu_id: auth.id,
+			});
+			console.log("Expenses sent successfully");
+		} catch (error) {
+			console.error("Error sending expenses:", error);
+		}
+		// Reset the input form
+		setExpense({ type: "", expenseName: "", cantidad: 0 });
+		setExpenseList([]);
+		//closes a modal
+		closeModal();
 	};
 
 	const deleteproduct = (myIndex) => {
-		// Use the callback form of setGastoList to ensure you are working with the latest state
-		setGastoList((prevGastoList) =>
-			prevGastoList.filter((gasto, index) => index !== myIndex)
+		// Use the callback form of setExpenseList to ensure you are working with the latest state
+		setExpenseList((prevExpenseList) =>
+			prevExpenseList.filter((expense, index) => index !== myIndex)
 		);
 	};
 
-	const resultado = gastoList.reduce(
+	const resultado = expenseList.reduce(
 		(total, currentValue) =>
 			(total = total + parseFloat(currentValue.cantidad)),
 		0
@@ -48,14 +65,14 @@ function Donativos({ closeModal, modalName }) {
 				<button
 					id="nino obrero"
 					className={styles.rosaFuerte}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					escuela niño del obrero
 				</button>
 				<button
 					id="gabriel aguirre"
 					className={styles.rosa}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					asilo gabriel aguirre
 				</button>
@@ -63,7 +80,7 @@ function Donativos({ closeModal, modalName }) {
 				<button
 					id="misioneros"
 					className={styles.naranja}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					misioneros
 				</button>
@@ -71,7 +88,7 @@ function Donativos({ closeModal, modalName }) {
 				<button
 					id="otro"
 					className={styles.morado}
-					onClick={(e) => createGasto(e)}
+					onClick={(e) => createexpense(e)}
 				>
 					otro
 				</button>
@@ -87,7 +104,7 @@ function Donativos({ closeModal, modalName }) {
 					</thead>
 
 					<tbody>
-						{gastoList.map((item, index) => (
+						{expenseList.map((item, index) => (
 							<tr key={index}>
 								<td>
 									<button
@@ -96,7 +113,7 @@ function Donativos({ closeModal, modalName }) {
 										X
 									</button>
 								</td>
-								<td>{item.gastoName}</td>
+								<td>{item.expenseName}</td>
 								<td>
 									{new Intl.NumberFormat("en-US", {
 										style: "currency",
@@ -118,7 +135,9 @@ function Donativos({ closeModal, modalName }) {
 				</div>
 			</div>
 			<div className={styles.aceptarCancelar}>
-				<button className={styles.aceptarBtn}>Aceptar</button>
+				<button className={styles.aceptarBtn} onClick={sendExpense}>
+					Aceptar
+				</button>
 				<button
 					className={styles.cancelarBtn}
 					onClick={() => closeModal()}
@@ -129,11 +148,11 @@ function Donativos({ closeModal, modalName }) {
 
 			{modalCantidad && (
 				<ModalCantidad
-					gasto={gasto}
-					setGasto={setGasto}
+					expense={expense}
+					setExpense={setExpense}
 					setModalCantidad={setModalCantidad}
-					gastoList={gastoList}
-					setGastoList={setGastoList}
+					expenseList={expenseList}
+					setExpenseList={setExpenseList}
 				/>
 			)}
 		</>

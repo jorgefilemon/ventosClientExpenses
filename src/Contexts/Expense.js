@@ -3,14 +3,14 @@ import React, { createContext, useState } from "react";
 export const ExpenseContext = createContext();
 
 const ExpenseProvider = ({ children }) => {
-	const [gasto, setGasto] = useState({
+	const [expense, setExpense] = useState({
 		type: "",
-		gastoName: "",
+		expenseName: "",
 		cantidad: 0,
 	});
 
 	return (
-		<ExpenseContext.Provider value={{ gasto, setGasto }}>
+		<ExpenseContext.Provider value={{ expense, setExpense }}>
 			{children}
 		</ExpenseContext.Provider>
 	);
